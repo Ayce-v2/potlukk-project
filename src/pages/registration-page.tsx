@@ -8,3 +8,4 @@ export function RegistrationPage(){
     <h1>Registration Page</h1>
     </>
 }
+
