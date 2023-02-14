@@ -15,6 +15,7 @@ function App() {
    <BrowserRouter>
    
    <Routes>
+     
      <Route path='/sign' element={<SignInPage/>}/>
      <Route path='/' element={<HomePage/>}/>
      <Route path='/registration' element={<RegistrationPage/>}/>

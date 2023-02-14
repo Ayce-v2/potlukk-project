@@ -96,6 +96,7 @@ export function SignInPage() {
           id="password" 
           value={password} 
           onChange={(event) => setPassword(event.target.value)} 
+          
         />
         </div>
         <button type="submit" onClick={handleSubmit} style={buttonStyles}>Sign In</button>

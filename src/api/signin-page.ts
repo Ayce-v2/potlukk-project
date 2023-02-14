@@ -6,8 +6,8 @@ export type VerifyUserResponse = {
     fname: string;
     lname: string;
 
-
 }
+
 export async function verifyUser(username: string, password: string) : Promise<VerifyUserResponse> {
       
   try {

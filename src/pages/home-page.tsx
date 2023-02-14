@@ -9,7 +9,7 @@ export function HomePage() {
     const navigate = useNavigate();
 
     function gotosignin(){
-        navigate('/sign');
+      navigate('/sign');
 
     }
 
