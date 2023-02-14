@@ -10,8 +10,10 @@ type Styles = {
 export function SignInPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [authvalue, setauthvalue] = useState('false');
+  
   const navigate = useNavigate(); 
-  localStorage.setItem("userauthentication", "false")
+  localStorage.setItem("userauthentication",  authvalue)
 
  
 
@@ -96,7 +98,7 @@ export function SignInPage() {
           id="password" 
           value={password} 
           onChange={(event) => setPassword(event.target.value)} 
-          
+
         />
         </div>
         <button type="submit" onClick={handleSubmit} style={buttonStyles}>Sign In</button>

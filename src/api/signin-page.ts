@@ -9,7 +9,7 @@ export type VerifyUserResponse = {
 }
 
 export async function verifyUser(username: string, password: string) : Promise<VerifyUserResponse> {
-      
+  
   try {
       const response = await fetch('http://127.0.0.1:8000/verify', {
         method: 'POST',
@@ -24,13 +24,15 @@ export async function verifyUser(username: string, password: string) : Promise<V
           throw new Error(`HTTP error! status: ${response.status}`);
       }
       
+      
       localStorage.setItem("userauthentication", "true")  
       const json: VerifyUserResponse = await response.json();  
       localStorage.setItem("loggedinUser", json.fname)  
       return json;
 
   } catch (error) {
-      alert('Error verifying user --> ' + error);
+      //alert('Error verifying user --> ' + error);
+      alert('Error verifying user --> Please try again');
       throw error;
   }
 }
