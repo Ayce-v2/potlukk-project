@@ -8,11 +8,12 @@ import { RegistrationPage } from './pages/registration-page';
 import { SignInPage } from './pages/sign-in-page';
 
 
+
 function App() {
   return  <>
   
    <BrowserRouter>
-   <NavigationBar/>
+   
    <Routes>
      <Route path='/sign' element={<SignInPage/>}/>
      <Route path='/' element={<HomePage/>}/>
