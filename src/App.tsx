@@ -21,8 +21,9 @@ function App() {
   return  <>
    <Provider store={appStore}>
    <BrowserRouter>
-   <NavigationBar/>
+   
    <Routes>
+     
      <Route path='/sign' element={<SignInPage/>}/>
      <Route path='/' element={<HomePage/>}/>
      <Route path='/registration' element={<RegistrationPage/>}/>
