@@ -1,27 +1,14 @@
-import { useReducer, useState } from "react"
+import { useReducer } from "react"
 import { useSelector } from "react-redux"
-import { Route } from "react-router-dom"
-import { createNewUser, getUsers, Lukker, NewUser } from "../api/registration-requests"
+import { createNewUser, NewUser } from "../api/registration-requests"
 import { verificationReducer } from "../reducers/registration-reducer"
 import { initialState } from "../reducers/registration-reducer"
 
 
-
-// type NewUserForm = {
-//     username: string
-//     password: string
-//     fname: string
-//     lname: string
-//     allergies:string []
-// }
-
-// type UserCreatorProps = {
-//     setUser: React.Dispatch<React.SetStateAction<Lukker | undefined>>
-// }
-
 export function RegistrationPage(){
 
-    const state = useSelector((state:NewUser) => state)
+    const state = useSelector((state:NewUser) => state.username) // ask how to test this is working and if i need to use "state" variable anywhere
+    const state2 = useSelector((state:NewUser) => state.password)
     const [verificationState, dispatch] = useReducer(verificationReducer, initialState)
     
     async function submitData() {
@@ -35,9 +22,9 @@ export function RegistrationPage(){
             allergies:verificationState.allergies
         })
         alert(`Success! New user was created, ID is ${lukker.userId}`)
-        window.location.href = '/';
+        window.location.href = '/'; 
     }else{
-        alert("Error! Password must be atleast 10 characters and have 1 special character.")
+        alert("Error! Passwords must match, have atleast 10 characters, and 1 special character.")
     }}
 
     
@@ -46,12 +33,19 @@ export function RegistrationPage(){
     <h1>Registration Page</h1>
 
     <label htmlFor="username">Username</label>
+    <br></br>
     <input id="username" type="text" placeholder="JohnDoe23" onChange={e => dispatch({type:"SET_USERNAME", payload:e.target.value})}/>
 
+    <br></br>
+
     <label htmlFor="password">Password</label>
+    <br></br>
     <input id="password" type="text" placeholder="******" onChange={e => dispatch({type:"SET_PASSWORD", payload:e.target.value})}/>
 
+    <br></br>
+
     <label htmlFor="confirm">Confirm Password</label>
+    <br></br>
     <input id="confirm" type="text" placeholder="******" onChange={e => dispatch({type:"VERIFY_PASSWORD", payload:e.target.value})}/>
 
    

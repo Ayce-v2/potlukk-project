@@ -22,7 +22,6 @@ export type SetPasswordAction = {type: "SET_PASSWORD", payload:string}
 export type PasswordVerificationAction = {type:"VERIFY_PASSWORD", payload:string}
 export type SetUsernameAction = {type:"SET_USERNAME", payload:string}
 export type SetAllergenAction = {type:"SET_ALLERGEN", payload:string}
-// export type PasswordLengthAction = {type:"PASSWORD_LENGTH", payload:string}
 export type VerificationActions = SetPasswordAction | PasswordVerificationAction | SetUsernameAction | SetAllergenAction
                                   
 const defaultState:NewUser = {
@@ -47,18 +46,21 @@ export function verificationReducer(state: NewUser = defaultState, action: Verif
 
         case "VERIFY_PASSWORD": {
             
+            nextState.isValid = true; //comment
+
             if(nextState.password.length < 10) {
                 nextState.isValid = false;
             }
 
             
-            if(!["!","@","#","$"].some(c => nextState.password.includes(c))){ // true if at least one special character is in password
+            if(!["!","@","#","$"].some(c => nextState.password.includes(c))){ 
                 nextState.isValid = false;
             }
 
             if(nextState.password !== action.payload) {
                 nextState.isValid = false;  
             }
+              
               return nextState;
         }
 
@@ -74,8 +76,8 @@ export function verificationReducer(state: NewUser = defaultState, action: Verif
             nextState.allergies.push(action.payload)
            }
            return nextState;
-           
-
         }
+
+        default: return nextState;
     }
 }
