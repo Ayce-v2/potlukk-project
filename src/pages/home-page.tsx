@@ -45,11 +45,13 @@ export function HomePage() {
 
     return<>
     
-        
+    
+
+            
         <div color='green'> <h1 style={headingStyles}> <center> Welcome to Potlukk page {localStorage.getItem("loggedinUser")} </center></h1> </div>
         
         <Container>
-          <h1></h1>
+           <h1></h1>
           <LogoutButton onClick={gotosignin}>Logout</LogoutButton>
         </Container>
 
