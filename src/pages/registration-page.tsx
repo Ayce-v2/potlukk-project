@@ -1,17 +1,21 @@
 import { useReducer } from "react"
-import { useSelector } from "react-redux"
-import { createNewUser, NewUser } from "../api/registration-requests"
+import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { createNewUser } from "../api/registration-requests"
+import { AppAction } from "../reducers/app-reducer"
 import { verificationReducer } from "../reducers/registration-reducer"
 import { initialState } from "../reducers/registration-reducer"
 
 
 export function RegistrationPage(){
 
-    const state = useSelector((state:NewUser) => state.username) // ask how to test this is working and if i need to use "state" variable anywhere
-    const state2 = useSelector((state:NewUser) => state.password)
+    
+    const navigate = useNavigate()
     const [verificationState, dispatch] = useReducer(verificationReducer, initialState)
+    const reduxDispatch = useDispatch()<AppAction>
     
     async function submitData() {
+        
         if(verificationState.isValid){
 
         const lukker = await createNewUser({
@@ -22,7 +26,8 @@ export function RegistrationPage(){
             allergies:verificationState.allergies
         })
         alert(`Success! New user was created, ID is ${lukker.userId}`)
-        window.location.href = '/'; 
+        reduxDispatch({type:"SET_LUKKER", payload:lukker}); // after creation we send a lukker to the app store and it can be used anywhere
+        navigate("/")
     }else{
         alert("Error! Passwords must match, have atleast 10 characters, and 1 special character.")
     }}

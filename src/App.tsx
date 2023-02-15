@@ -8,16 +8,18 @@ import { PotlukkDetailsHostPage } from './pages/details-host-page';
 import { HomePage } from './pages/home-page';
 import { RegistrationPage } from './pages/registration-page';
 import { SignInPage } from './pages/sign-in-page';
-import { verificationReducer } from './reducers/registration-reducer';
+import appStateReducer from './reducers/app-reducer';
 
 
+const appStore = createStore(appStateReducer)
 
 function App() {
+  
 
-  const registrationStore = createStore(verificationReducer)
+ 
 
   return  <>
-   <Provider store={registrationStore}>
+   <Provider store={appStore}>
    <BrowserRouter>
    <NavigationBar/>
    <Routes>

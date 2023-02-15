@@ -46,7 +46,7 @@ export function verificationReducer(state: NewUser = defaultState, action: Verif
 
         case "VERIFY_PASSWORD": {
             
-            nextState.isValid = true; //comment
+            nextState.isValid = true; 
 
             if(nextState.password.length < 10) {
                 nextState.isValid = false;
