@@ -28,7 +28,7 @@ function App() {
      <Route path='/' element={<HomePage/>}/>
      <Route path='/registration' element={<RegistrationPage/>}/>
      <Route path='/detailsGuest' element={<PotlukkDetailsGuestPage/>}/>
-     <Route path='/detailsHost' element={<PotlukkDetailsHostPage/>}/>
+     <Route path='/detailsHost' element={<PotlukkDetailsHostPage potlukkId={1}/>}/>
 
 
 
