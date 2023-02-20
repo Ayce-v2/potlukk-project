@@ -9,6 +9,47 @@ import { initialState } from "../reducers/registration-reducer"
 
 export function RegistrationPage(){
 
+    const headingStyles = {
+        color: 'blue',
+        marginBottom: '2rem',
+      };
+    
+      const labelStyles = {
+        display: 'block',
+        fontSize: '1.2rem',
+        fontWeight: 'bold',
+        marginBottom: '0.5rem',
+      };
+    
+      const inputStyles = {
+        fontSize: '1rem',
+        padding: '0.5rem',
+        borderRadius: '5px',
+        border: '1px solid grey',
+        marginBottom: '1rem',
+      };
+    
+      const buttonStyles = {
+        backgroundColor: 'green',
+        color: 'white',
+        padding: '1rem 1rem',
+        border: 'none',
+        borderRadius: '1px',
+        cursor: 'pointer',
+      };
+    
+    
+      const formStyles = {
+        display: 'flex',
+        flexDirection: 'column' as const,
+        maxWidth: '300px',
+        margin: '0 auto',
+        border: '1px solid gray',
+        padding: '1rem',
+        borderRadius: '5px',
+        backgroundColor: 'lightgrey'
+      };
+
     
     const navigate = useNavigate()
     const [verificationState, dispatch] = useReducer(verificationReducer, initialState)
@@ -35,46 +76,50 @@ export function RegistrationPage(){
     
     
     return <>
-    <h1>Registration Page</h1>
+    <h1 style={headingStyles}> <center>Registration Page</center></h1>
 
-    <label htmlFor="username">Username</label>
-    <br></br>
-    <input id="username" type="text" placeholder="JohnDoe23" onChange={e => dispatch({type:"SET_USERNAME", payload:e.target.value})}/>
+    <form style={formStyles}>
 
+    <label style={labelStyles} htmlFor="username">Username</label>
     <br></br>
-
-    <label htmlFor="password">Password</label>
-    <br></br>
-    <input id="password" type="text" placeholder="******" onChange={e => dispatch({type:"SET_PASSWORD", payload:e.target.value})}/>
+    <input style={inputStyles} id="username" type="text" placeholder="JohnDoe23" onChange={e => dispatch({type:"SET_USERNAME", payload:e.target.value})}/>
 
     <br></br>
 
-    <label htmlFor="confirm">Confirm Password</label>
+    <label style={labelStyles} htmlFor="password">Password</label>
     <br></br>
-    <input id="confirm" type="text" placeholder="******" onChange={e => dispatch({type:"VERIFY_PASSWORD", payload:e.target.value})}/>
+    <input style={inputStyles} id="password" type="text" placeholder="******" onChange={e => dispatch({type:"SET_PASSWORD", payload:e.target.value})}/>
+
+    <br></br>
+
+    <label style={labelStyles} htmlFor="confirm">Confirm Password</label>
+    <br></br>
+    <input style={inputStyles} id="confirm" type="text" placeholder="******" onChange={e => dispatch({type:"VERIFY_PASSWORD", payload:e.target.value})}/>
 
    
 
     <div id="allergens">
-        <h3>Select Allergens:</h3>
+        <h3 style={headingStyles}>Select Allergens:</h3>
 
-        <label htmlFor="allergy">Tree Nuts</label>
-        <input id="allergy" type="checkbox" onChange={e =>dispatch({type:"SET_ALLERGEN", payload:"TREE_NUT"})}/>
+        <label style={labelStyles} htmlFor="allergy">Tree Nuts</label>
+        <input style={inputStyles} id="allergy" type="checkbox" onChange={e =>dispatch({type:"SET_ALLERGEN", payload:"TREE_NUT"})}/>
         
-        <br></br>
+        
 
-        <label htmlFor="allergy2">Soy</label>
-        <input id="allergy2" type="checkbox"  onChange={e =>dispatch({type:"SET_ALLERGEN", payload:"SOY"})}/>
+        <label style={labelStyles} htmlFor="allergy2">Soy</label>
+        <input style={inputStyles} id="allergy2" type="checkbox"  onChange={e =>dispatch({type:"SET_ALLERGEN", payload:"SOY"})}/>
 
-        <br></br>
+        
 
-        <label htmlFor="allergy3">Milk</label>
-        <input id="allergy3" type="checkbox"   onChange={e =>dispatch({type:"SET_ALLERGEN", payload:"MILK"})}/>
+        <label style={labelStyles} htmlFor="allergy3">Milk</label>
+        <input style={inputStyles} id="allergy3" type="checkbox"   onChange={e =>dispatch({type:"SET_ALLERGEN", payload:"MILK"})}/>
 
     </div>
 
     <br></br>
-    <button onClick={submitData}>Sign Up!</button>
+    <button style={buttonStyles} onClick={submitData}>Sign Up!</button>
+
+    </form>
 
     
     </>
