@@ -13,7 +13,7 @@ import { initialState } from "../reducers/host-dishes-reducer"
 export function PotlukkDetailsHostPage() {
 
     // const {idOfPotlukk} = useParams();
-    // console.log(idOfPotlukk)
+    // console.log(idOfPotlukk) //
 
 
     const headingStyles = {
