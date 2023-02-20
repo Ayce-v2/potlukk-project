@@ -1,17 +1,15 @@
-
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { createStore } from 'redux';
-import { NavigationBar } from './navigation/navbar';
+import { combineReducers, createStore } from 'redux';
 import { PotlukkDetailsGuestPage } from './pages/details-guest-page';
 import { PotlukkDetailsHostPage } from './pages/details-host-page';
 import { HomePage } from './pages/home-page';
 import { RegistrationPage } from './pages/registration-page';
 import { SignInPage } from './pages/sign-in-page';
-import appStateReducer from './reducers/app-reducer';
+import rootReducer from './reducers/root-reducer';
 
 
-const appStore = createStore(appStateReducer)
+const appStore = createStore(rootReducer)
 
 function App() {
   
@@ -28,7 +26,7 @@ function App() {
      <Route path='/' element={<HomePage/>}/>
      <Route path='/registration' element={<RegistrationPage/>}/>
      <Route path='/detailsGuest' element={<PotlukkDetailsGuestPage/>}/>
-     <Route path='/detailsHost' element={<PotlukkDetailsHostPage potlukkId={1}/>}/>
+     <Route path='/detailsHost' element={<PotlukkDetailsHostPage/>}/>
 
 
 
@@ -42,3 +40,5 @@ function App() {
 }
 
 export default App;
+
+//potlukkId={1} in details host page ----- /:idOfPotlukk in path
