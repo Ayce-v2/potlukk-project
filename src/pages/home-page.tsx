@@ -1,58 +1,111 @@
-import { useNavigate } from 'react-router-dom';
-import { Link, useLocation } from 'react-router-dom';
-import { NavigationBar } from '../navigation/navbar';
-import styled from 'styled-components';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { LukkerUserState, Potlukk, PotlukkActions, RequestPotlukkDetailsAction } from "../reducers/potlukk-reducer";
+import { NavBar } from "../navigation/navbar";
+
+import React, { useEffect } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 
+const Container_home = styled.div`
+display: flex;
+justify-content: center;
+background-color: white;
+  padding: 10px;
+`;
 
-export function HomePage() {
-    const navigate = useNavigate();
+const List_home = styled.div`
+list-style: none;
+margin: 5px;
+border: 2px solid #ccc;
+padding: 10px;
+width: 250px;
+height: 400px;
+float: center;
+overflow: auto;
+`;
 
-    function gotosignin(){
-      navigate('/sign');
+const ActionList_home = styled.ul`
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  `;
 
+  const ActionListItem_home = styled.li`
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+
+    &:hover {
+      background-color: green;
     }
+  `;
 
-    const Container = styled.div`
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      `;
+  const Title_home = styled.h2`
+    margin-top: 0;
+    text-align: center;
+  `;
 
-      const LogoutButton = styled.button`
-        background-color: #333;
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        font-size: 16px;
-      `;
 
-    const headingStyles = {
-        color: 'blue',
-        marginBottom: '2rem',
-      };
+export function HomePage(){
+
+  
+        
+      
+    const potlukkListhome = useSelector((store: LukkerUserState) => store.potlukkList);    
+    const potlucks = JSON.parse(localStorage.getItem("pottulukks") || "[]");
+     const dispatch = useDispatch()<RequestPotlukkDetailsAction>;    
+     const sendDispatch = useDispatch()<PotlukkActions>
     
-      const buttonStyles = {
-        backgroundColor: 'green',
-        color: 'white',
-        padding: '1rem 2rem',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        alignItems: 'right'
-      };
-
-
+     useEffect(()=>{
+         dispatch({type:"REQUEST_POTLUKK_DETAILS"})
+     },[])   
+    
+  
     return<>
-    
+        <NavBar />
         
-        <div color='green'> <h1 style={headingStyles}> <center> Welcome to Potlukk page {localStorage.getItem("loggedinUser")} </center></h1> </div>
-        
-        <Container>
-          <h1></h1>
-          <LogoutButton onClick={gotosignin}>Logout</LogoutButton>
-        </Container>
+        <Container_home>
+           
+          
+          
+          <List_home>
+          
+            <Title_home>Hosted Potlukks - {potlucks.length-1}</Title_home>
+            <ActionList_home>
+                {potlucks.map((item: any, index: number) => (
+                //   <ActionListItem_home key={index} onClick={sendDispatch({type: "REQUEST_GET_POTLUKK_BY_ID", payload: item.potlukkId})>
+                //   <Link={/detail}> Potluck #{item.potlukkId}</ActionListItem_home>
+                // ))}
+                <ActionListItem_home key={index} onClick={() => sendDispatch({type: "REQUEST_GET_POTLUKK_BY_ID", payload: item.potlukkId})}>
+              <Link to="/detail"> Potluck #{item.potlukkId}</Link>
+          </ActionListItem_home>))}
+            </ActionList_home>
 
-        <NavigationBar/> 
-        </>
-}
+            
+
+          </List_home>
+
+             
+          <List_home>
+          
+          <Title_home>Invited Potlukks</Title_home>
+          <ActionList_home>
+            
+          </ActionList_home>
+        </List_home>
+
+         
+        <List_home>
+          
+          <Title_home>Notifications </Title_home>
+          <ActionList_home>
+           
+          </ActionList_home>
+        </List_home>
+
+          </Container_home>
+
+          
+      </>
+  }

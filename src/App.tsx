@@ -1,32 +1,42 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { NavigationBar } from './navigation/navbar';
-import { PotlukkDetailsGuestPage } from './pages/details-guest-page';
-import { PotlukkDetailsHostPage } from './pages/details-host-page';
 import { HomePage } from './pages/home-page';
 import { RegistrationPage } from './pages/registration-page';
-import { SignInPage } from './pages/sign-in-page';
+import { SignInpage } from './pages/sign-in-page';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from '@redux-saga/core';
+import { lukkerUserReducer } from './reducers/potlukk-reducer';
+import { createStore, applyMiddleware } from '@reduxjs/toolkit';
+import { rootSaga } from './sagas/potlukk-saga';
+import { Hostpage } from './pages/host-page';
+import { DetailHost } from './pages/details-host-page';
 
+
+const sagaMiddleware = createSagaMiddleware()
+const potlukkStore = createStore(lukkerUserReducer, applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(rootSaga)
 
 
 function App() {
   return  <>
-  
+    <Provider store={potlukkStore}>
    <BrowserRouter>
    
    <Routes>
      
-     <Route path='/sign' element={<SignInPage/>}/>
-     <Route path='/' element={<HomePage/>}/>
+     <Route path='/' element={<SignInpage/>}/>
+     <Route path='/home' element={<HomePage/>}/>
      <Route path='/registration' element={<RegistrationPage/>}/>
-     <Route path='/detailsGuest' element={<PotlukkDetailsGuestPage/>}/>
-     <Route path='/detailsHost' element={<PotlukkDetailsHostPage/>}/>
+     <Route path='/host' element={<Hostpage/>}/>
+     <Route path='/detail' element={<DetailHost/>}/>
+     
 
 
 
    </Routes>
 
   </BrowserRouter>
+  </Provider>
   </>
   
   

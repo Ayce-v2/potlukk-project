@@ -6,6 +6,10 @@
       "dom.iterable",
       "esnext"
     ],
+    "types": [
+      "@reduxjs/toolkit",
+      // other type declaration files...
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
