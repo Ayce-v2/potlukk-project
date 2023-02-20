@@ -71,7 +71,7 @@ export function RegistrationPage(){
         navigate("/")
     }else{
         alert("Error! Passwords must match, have atleast 10 characters, and 1 special character.")
-    }}
+    }} 
 
     
     
