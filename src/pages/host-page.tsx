@@ -136,7 +136,7 @@ export function Hostpage(){
                                 <input placeholder="description" onChange={(e)=>dispatchForm({type:"SET_DESCRIPTION", payload: e.target.value})}></input>
                             </div>
                             
-                            <Label>MakePublic </Label>
+                            <Label>Public </Label>
                                 <input placeholder="public" type="checkbox" onChange={() =>FormState.details.isPublic ? dispatchForm({type:"IS_PUBLIC", payload: false}) : dispatchForm({type:"IS_PUBLIC", payload: true})}></input>                                
                             
                             
@@ -162,7 +162,7 @@ export function Hostpage(){
                             </div>
                             <Column />
                    
-                            <div className="invite-lukkers-container">
+                            <div className="invite-container">
                             <SearchComponent/>
                             </div>
                             <Column />

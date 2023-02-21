@@ -167,7 +167,6 @@ export function DetailHost(){
                                 
                 
                                 </DateTimeContainer> }
-                                {/* <Calendar onChange={(value: any,event: any) => dispatchForm({type: "SET_TIME",payload: value.getTime() /1000})}/> */}
                             </div>
                             <div>
                              <Label>Title</Label>
