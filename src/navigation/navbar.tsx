@@ -75,6 +75,8 @@ export function NavBar(){
        <NavItem><NavLink href="/Invitaions">Invitations</NavLink></NavItem>
        <NavItem><NavLink href="/Host">Host</NavLink></NavItem>
        <NavItem><NavLink href="/detail">Host Details</NavLink></NavItem>
+       <NavItem><NavLink href="/registration">Registration</NavLink></NavItem>
+       
        
        <NavItem><NavLink href=""></NavLink></NavItem>
      

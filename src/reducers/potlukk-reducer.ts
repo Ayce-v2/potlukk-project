@@ -167,6 +167,7 @@ export type GetPotlukkDetails = {type:"GET_POTLUKK_DETAILS",payload:Potlukk[]}
 export type DeleteInvitedAction = {type: "DELETE_INVITED_ACTION", payload: string}
 export type SetNotificationAction = {type:"SET_NOTIFICATION",payload:PotlukkNotification}
 export type SetNotificationList = {type:"SET_NOTIFICATION_LIST",payload:PotlukkNotification[]}
+export type SetCurrentPotlukk = {type: "SET_CURRENT_POTLUKK", payload: Potlukk}
 
 
 
@@ -184,7 +185,7 @@ export type RequestGetPotlukkById = {type: "REQUEST_GET_POTLUKK_BY_ID", payload:
 
 
 // Action types
-export type PotlukkActions = AddUser| SetErrorAction| ClearErrorAction | SetUser|
+export type PotlukkActions = AddUser| SetErrorAction| ClearErrorAction | SetUser|SetCurrentPotlukk|
 ClearUser|GetUsersAction|InviteUserAction | DeleteInviteAction|GetUserNameAction |AddPotlukk|DeleteInvitedAction|ClearInviteAction
 |SignInUser| ClearUser|GetPotlukkDetails|RequestGetUsersAction|RequestGetPotlukkById|RequestUserIdAction|RequestCreatePotlukk| RequestCancelPotlukk|RequestPotlukkDetailsAction|RequestEditPotlukk
 
@@ -288,6 +289,12 @@ export function lukkerUserReducer(state: LukkerUserState = initialState, action:
             
               nextState.potlukkList.push(action.payload)
               return nextState   
+        }
+
+        case "SET_CURRENT_POTLUKK":{
+            nextState.currentPotluck = action.payload
+            //console.log("from reducer"+action.payload.potlukkId)
+            return nextState
         }
         
         case "GET_USERS_ACTION": {

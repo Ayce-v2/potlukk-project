@@ -15,7 +15,7 @@ const Container = styled.div`
 
 const SearchInput = styled.input`
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   width: 120%;
   box-sizing: border-box;
   flex: 1;
@@ -56,7 +56,7 @@ const ActionListItem_home = styled.li`
 
 const InviteButton = styled.button`
   background-color: #4CAF50;
-  color: white;
+  color: black;
   padding: 8px;
   border: none;
   border-radius: 4px;
@@ -72,6 +72,7 @@ width: 350px;
 height: 120px;
 float: center;
 overflow: auto;
+
 `;
 
 const ActionList_home = styled.ul`
@@ -133,6 +134,7 @@ const SearchComponent = () => {
               {AllUsers.filter((item: any) => 
                       item.username.toLowerCase().includes(form.toLowerCase()) ||
                       item.fname.toLowerCase().includes(form.toLowerCase()) ||
+                      item.fname.toLowerCase() !== ""  ||
                       item.lname.toLowerCase().includes(form.toLowerCase())
                   ).map((item: any)=><div><ActionListItem_home key={item.username}>{item.fname} {item.lname} {}
                         <InviteButton onClick={() =>sendDispatch({type: "INVITE_USER_ACTION",

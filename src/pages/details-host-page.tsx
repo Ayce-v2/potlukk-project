@@ -65,7 +65,6 @@ const Column = styled.div`
   
 `;
 
-
 export function DetailHost(){
   const sendDispatch = useDispatch()<PotlukkActions>
   const alert = useAlert();
@@ -85,9 +84,31 @@ export function DetailHost(){
   }
   const [FormState, dispatchForm] = useReducer(PotlukkEditFormReducer, initialState)
 
+  
+
+  const [successMessage, setSuccessMessage] = useState("");
+
   const selector = useSelector((store: LukkerUserState) => store)
 
   const details = selector.currentPotluck.details
+
+  let color;
+
+  if (details.status.toString() === 'SCHEDULED') {
+    color = 'green';
+  } else if (details.status.toString() === 'CANCELLED') {
+    color = 'RED';
+  } else {
+    color = 'black';
+  }
+
+
+  
+
+  
+
+  const currpotlukkId = selector.currentPotluck.potlukkId
+  FormState.potlukkId = currpotlukkId
   
   const [tagInput, setTagInput]= useState("")
 
@@ -106,16 +127,40 @@ export function DetailHost(){
         dispatchForm({ type: "EDIT_TIME", payload: value.getTime() / 1000});
       };
 
+    function handleupdate(){
+      sendDispatch({type:"REQUEST_EDIT_POTLUKK", payload: FormState})
+      setSuccessMessage("Potlukk record updated successfully !!!")
+
+    }
+
+    function handleClick() {
+      const result = window.confirm('Are you sure you want to cancel this Potlukk?');
+  
+      if (result) {
+        console.log('User clicked Yes');
+        sendDispatch({type:"REQUEST_CANCEL_POTLUKK", payload: FormState});
+
+        setSuccessMessage("You have Cancelled the Potlukk !!!")
+        window.close();
+        //router("/home");
+        // Perform Yes action here
+      } else {
+        console.log('User clicked No');
+        // Perform No action here
+        window.close()
+      }
+    }
+
     return (
     <>
       <NavBar/>
 
       <Column>
-      <div>Details of Pottluk</div>  
+      <h3>Details of Pottluk # <b style={{ color }}>{currpotlukkId} </b> </h3> 
              <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
             
-                <div className="calendar-container">                     
-                            <div className="date-input-container" style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                <div>                     
+                            <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                                 <Label>Date/time </Label>
                                 { <DateTimeContainer>
                                  <CalendarInput value={date1} onChange={handleDateTimeChange} /> 
@@ -124,7 +169,7 @@ export function DetailHost(){
                                 </DateTimeContainer> }
                                 {/* <Calendar onChange={(value: any,event: any) => dispatchForm({type: "SET_TIME",payload: value.getTime() /1000})}/> */}
                             </div>
-                            <div className="title-container">
+                            <div>
                              <Label>Title</Label>
                              <input  value={FormState.title} placeholder={details.title} onChange={(e) =>dispatchForm({type:"EDIT_TITLE", payload: e.target.value})}></input>
                             </div>
@@ -148,44 +193,44 @@ export function DetailHost(){
                                         dispatchForm({type:"EDIT_IS_PUBLIC", payload: true})}></input>}
                             
                             
-                                <div className="tags-input-container">
+                                <div>
                                 <Label>TagName </Label>
                                     {/* <input placeholder="tags" onChange={(e)=> setTagInput(e.target.value)}></input> */}
-                                    <input placeholder={FormState.tags.toString()} onChange={(e)=> setTagInput(e.target.value)}></input>
-                                </div>                                
+                                    {/* <input placeholder={FormState.tags.map((item: any) => {{item.value}}} onChange={(e)=>dispatchForm({type:"ADD_TAG", payload: e.target.value})}></input> */}
+                                    <input 
+                                    placeholder={FormState.tags.map((item: any) =>  item.value).join('')} 
+                                    onChange={(e) => dispatchForm({type: "ADD_TAG", payload: e.target.value})}
+                                  />
+                                
+                                </div>      
+
+                                <Label>Status </Label>
+
+                                <Label style={{ color }}> {details.status} </Label>                          
                            
                                 <div >
-                                <button onClick={() =>{sendDispatch({type:"REQUEST_EDIT_POTLUKK", payload: FormState})}}>Update</button>
+                                <button onClick={() =>{handleupdate()}}>Update</button>
                                 
-                                <button onClick={ () => alert.open({
-                                message: "Are you sure you want to cancel this Potlukk?",
-                                buttons: [
-                                    {
-                                    label: "Yes",
-                                    onClick: () =>{
-                                        sendDispatch({type:"REQUEST_CANCEL_POTLUKK", payload: FormState});
-                                        alert.close();
-                                        router("/home");
-                                    },
-                                    },
-                                    {
-                                    label: "No",
-                                    onClick: () =>{
-                                        alert.close()
-                                    }
-                                    },
-                                ]
-                                })}>Cancel</button>
+                                <button onClick={() =>{handleClick()}}>Cancel</button>
                                 </div>
+
+                                <div>
+                                  <p><b>{successMessage} </b></p>
+                                </div>
+                               
+                                
+                            </div> 
+                                  <div>
+                                    <SearchComponent />
+                                  </div>
                             </div>
-                            </div>
+                            <Column />
+                            <Column />
+                            <Column />
                             
                             </Column>
-        <Column>
-            
-            <SearchComponent/>
-            
-        </Column>
+                            
+       
         
                             
                             

@@ -96,24 +96,25 @@ export function Hostpage(){
         setDate(value)
         dispatchForm({ type: "SET_TIME", payload: value.getTime() / 1000});
       };
-
       
- 
-    
-
-    return (
+      return (
     <>
      <NavBar/>
 
      <Container>
       <Column />
       
-            <div>{FormState.hostId}</div>  
+           
              <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+             
                <div></div>
               <div></div>
-                <div className="calendar-container">                     
-                            <div className="date-input-container" style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                <div>  
+                <h3>Welcome {localStorage.getItem("username")} #{FormState.hostId}</h3> 
+                <div></div> 
+                <div></div>                    
+                <div></div>      
+                            <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
                                 <Label>Date/Time </Label>
                                 { <DateTimeContainer>
                                  <CalendarInput value={date1} onChange={handleDateTimeChange} /> 
@@ -139,15 +140,15 @@ export function Hostpage(){
                                 <input placeholder="public" type="checkbox" onChange={() =>FormState.details.isPublic ? dispatchForm({type:"IS_PUBLIC", payload: false}) : dispatchForm({type:"IS_PUBLIC", payload: true})}></input>                                
                             
                             
-                                <div className="tags-input-container">
+                                <div>
                                 <Label>TagName </Label>
                                     {/* <input placeholder="tags" onChange={(e)=> setTagInput(e.target.value)}></input> */}
-                                    <input placeholder="tags" onChange={(e)=>dispatchForm({type:"ADD_TAG", payload: tagInput})}></input>
+                                    <input placeholder="tags" onChange={(e)=>dispatchForm({type:"ADD_TAG", payload: e.target.value})}></input>
                                 </div>
-                                <div className="tagsbutton-container">
+                                <div>
                                     {/* <button onClick={(e)=>dispatchForm({type:"ADD_TAG", payload: tagInput})}>add tag</button> */}
                                 </div>
-                                <div className="tagsshow-container">
+                                <div>
                                     <div>{FormState.details.tags}</div>
                                 </div>
                             

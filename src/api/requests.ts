@@ -260,4 +260,5 @@ export async function getUserById(params:string):Promise<LukkerUserInfo>{
     });
     const newUser:LukkerUserInfo = await httpResponse.json();
     return newUser;
-}
+  }
+

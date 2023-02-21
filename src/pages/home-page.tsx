@@ -49,7 +49,7 @@ const ActionList_home = styled.ul`
 
 export function HomePage(){
 
-  
+  hostId: Number(localStorage.getItem("userid"))
         
       
     const potlukkListhome = useSelector((store: LukkerUserState) => store.potlukkList);    
@@ -60,6 +60,11 @@ export function HomePage(){
      useEffect(()=>{
          dispatch({type:"REQUEST_POTLUKK_DETAILS"})
      },[])   
+
+     
+     //const currentuserpotlucks = potlucks.filter(((item: string) => item.includes(localStorage.getItem("userid") || "")));
+
+    // const currentuserpotlucks = potlucks.filter((item: any) => item.host.userId === localStorage.getItem("userid"))
     
   
     return<>
@@ -71,7 +76,7 @@ export function HomePage(){
           
           <List_home>
           
-            <Title_home>Hosted Potlukks - {potlucks.length-1}</Title_home>
+            <Title_home>Hosted Potlukks - {potlucks.length}</Title_home>
             <ActionList_home>
                 {potlucks.map((item: any, index: number) => (
                 //   <ActionListItem_home key={index} onClick={sendDispatch({type: "REQUEST_GET_POTLUKK_BY_ID", payload: item.potlukkId})>
