@@ -22,7 +22,10 @@ export type SetPasswordAction = {type: "SET_PASSWORD", payload:string}
 export type PasswordVerificationAction = {type:"VERIFY_PASSWORD", payload:string}
 export type SetUsernameAction = {type:"SET_USERNAME", payload:string}
 export type SetAllergenAction = {type:"SET_ALLERGEN", payload:string}
-export type VerificationActions = SetPasswordAction | PasswordVerificationAction | SetUsernameAction | SetAllergenAction
+export type SetFirstNameAction = {type:"SET_FIRSTNAME", payload:string}
+export type SetLastNameAction = {type:"SET_LASTNAME", payload:string}
+export type VerificationActions = SetPasswordAction | PasswordVerificationAction | SetUsernameAction | SetAllergenAction| SetFirstNameAction
+|SetLastNameAction
                                   
 const defaultState:NewUser = {
     allergies: [],
@@ -67,6 +70,18 @@ export function verificationReducer(state: NewUser = defaultState, action: Verif
         case "SET_USERNAME": {
 
             nextState.username = action.payload;
+            return nextState;
+        }
+
+        case "SET_FIRSTNAME": {
+
+            nextState.fname = action.payload;
+            return nextState;
+        }
+
+        case "SET_LASTNAME": {
+
+            nextState.lname = action.payload;
             return nextState;
         }
 
