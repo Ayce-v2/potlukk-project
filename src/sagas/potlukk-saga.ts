@@ -1,5 +1,5 @@
 import { takeEvery, put, all, select } from "@redux-saga/core/effects";
-import { createPotlukk, editPotlukk, getAllUsers, sendInvite, verifyUser, getPotlukkuserDetails, addNotification} from "../api/requests";
+import { createPotlukk, editPotlukk, getAllUsers, sendInvite, verifyUser, getPotlukkuserDetails, addNotification,getPotlukkById} from "../api/requests";
 import { LukkerUserInfo, Potlukk, PotlukkNotification, RequestCreatePotlukk, RequestEditPotlukk, RequestGetPotlukkById, RequestGetUsersAction, RequestPotlukkDetailsAction, RequestUserIdAction, SignInUser  } from "../reducers/potlukk-reducer";
 
 
@@ -73,67 +73,6 @@ export function* editPotlukkByForm(action: RequestEditPotlukk){
     }
 }
 
-export async function getPotlukkById(form:number):Promise<Potlukk>{
-
-    const query = `query getPoutlukkById($input: Int!){
-      potlukks(potlukkId: $input){
-        ...on Potlukk{
-          potlukkId
-          details{
-            title
-            location
-            status
-            description
-            isPublic
-            time
-            tags
-          }
-          host{
-            userId
-            username
-            fname
-            lname
-            allergies
-          }
-          invitations{
-            status
-            potlukker{
-              userId
-              username
-              fname
-              lname
-              allergies
-            }
-          }
-            dishes{
-              name
-              description
-              broughtBy
-              serves
-              allergens
-            }
-          }
-      }
-    }`
-    const variables = {input:form}
-    const body = JSON.stringify({query:query,variables:variables})
-  
-    const httpResponse = await fetch("http://127.0.0.1:8000/graphql", {method:"POST", body, headers:{"Content-Type":"application/json"}});
-    const responseBody = await httpResponse.json();
-    const potlukk:Potlukk = responseBody.data.potlukks[0];
-    return potlukk
-  }
-
-export function* getPotlukkDetails(action:RequestPotlukkDetailsAction){
-    try{
-        const lukkers: Potlukk[]  = yield getPotlukkuserDetails();
-        yield put({type:"GET_POTLUKK_DETAILS",payload: lukkers});
-        
-    }catch(e){
-        yield put({type:"ERROR", payload: e, error:true
-        });
-    }   
-}
 
 export function* getPotlukkByIdForm(action: RequestGetPotlukkById){
 
@@ -142,7 +81,7 @@ export function* getPotlukkByIdForm(action: RequestGetPotlukkById){
         const potlukk: Potlukk  = yield getPotlukkById(action.payload);
         yield put({type:"SET_CURRENT_POTLUKK", payload: potlukk});
     }catch(e){
-        yield put({type:"ERROR", payload: e, error:true
+        yield put({type:"SET-ERROR-ACTION", payload: e, error:true
         });
     }
 }
@@ -161,7 +100,7 @@ export function* cancelPotlukk(action: RequestEditPotlukk){
         yield put({type:"SET_NOTIFICATION",payload:notified})
         
     }catch(e){
-        yield put({type:"ERROR", payload: e, error:true
+        yield put({type:"SET-ERROR-ACTION", payload: e, error:true
         });
     }
 }
@@ -198,7 +137,7 @@ export function* watcheditPotlukkByForm(){
 }
 
 export function* watchGetPotlukkDetails(){
-    yield takeEvery("REQUEST_POTLUKK_DETAILS",getPotlukkDetails)
+    yield takeEvery("REQUEST_POTLUKK_DETAILS",getPotlukkuserDetails)
 }
 
 export function* watchGetUsers(){
