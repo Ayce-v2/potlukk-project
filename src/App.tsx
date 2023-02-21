@@ -1,9 +1,9 @@
-import React from 'react';
+
+import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HomePage } from './pages/home-page';
 import { RegistrationPage } from './pages/registration-page';
 import { SignInpage } from './pages/sign-in-page';
-import { Provider } from 'react-redux';
 import createSagaMiddleware from '@redux-saga/core';
 import { lukkerUserReducer } from './reducers/potlukk-reducer';
 import { createStore, applyMiddleware } from '@reduxjs/toolkit';
